@@ -41,3 +41,7 @@ ul.posts {
 ul.posts li {
     list-style: none;
 }
+col-wrapper{width:960px; margin:0 auto;}
+col{margin:0 10px; float:left; display:inline;}
+col-670{width:670px;}
+col-250{width:250px;}
