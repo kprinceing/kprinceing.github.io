@@ -7,7 +7,7 @@ title:  research
 	<h3>Working Papers</h3>
 	<ul>
 	
-		<li> <a href="	https://www.dropbox.com/s/owyaukvauxecjwf/draft.pdf?dl=0"> The Power of Not Asking: How Does the Presumed Consent Law Affect Patients' Choice of Prescription Drugs ? (JMP) </a> </li>
+		<li id= 'paper'> <a href="	https://www.dropbox.com/s/owyaukvauxecjwf/draft.pdf?dl=0"> The Power of Not Asking: How Does the Presumed Consent Law Affect Patients' Choice of Prescription Drugs ? (JMP) </a> </li>
 		<h4>  Abstract </h4>
 		<blockquote>This work investigates how mandatory switching and presumed consent laws affect consumers' choice of prescription drugs. The analysis uses changes in states' drug substitution policies for identification. The results indicate that mandatory switching law has little effect while the presumed consent increases the generic substitution ratio. I model the presumed consent law as an extra cost to buy brand drugs. I find the size of the cost is equivalent to a 28 dollar increase in the price of brand drugs. The average marginal effect of the policy is that the probability of purchasing brand drugs decrease by 11 percent. A welfare calculation indicates that consumer's surplus loss exceeds the insurance's gain by 7.5 dollars per person when states swtich from explicit to presumed consent law.</blockquote>
 		<li> How Does the New Cooperative Medical Scheme Vary Cross Counties and Over Time ? </li>
@@ -16,6 +16,25 @@ title:  research
 		<li> Mortality Belief, Individual Health Shocks and Smoking Decision </li>
 		<h4>  Abstract </h4>
 		<blockquote> This paper tries to understand the relationship between individuals’ subjective estimate of their susceptibility to smoking and their decisions to smoke. It investigates how individual’s smoking related health shocks affect their subject belief of susceptibility to smoking and promote cessation behaviour. I develop a three period decision model of smoking. From the model, I derive two testable hypothesis about private health shocks and individual’s belief of susceptibility to smoking. They are: (1) Smokers update their subjective estimate of own suscepbility of smoking when receiving smoking related disease diagnosis. (2) An increase in awareness of own susceptibility will promote quitting. I use data from the Health and Retirement Study (HRS) to test these hypotheses. I implement an approach similar to difference in difference (DID) to test the first hypothesis. The dependent variable is the change in survival belief to age 75 in two adjacent waves of HRS survey. I find that the difference in this variable between smokers who received smoking related health shocks or not is significantly larger than that of non-smokers. The joint F test for smoking related shocks is significant at 5 percent level. This provide supportive evidence for hypothesis one. For the second hypothesis, I implement a probit regression. The dependent variable whether a smoker quits smoking in the next wave of survey. The regression finds that the onset of smoking related diseases promotes cessation. This supports hypothesis two since these shocks increases the awareness of own susceptiblity. Combining the two results together, I find individual’s health shocks promote smoke cessation and the mechanism is that smokers could get a more precise understanding of their own susceptibility to smoking. Policy makers can mandate preventative health check-ups for smoking related health shocks to promote cessation behaviors. </blockquote>
+		var downloadLink = document.getElementById('paper');
+		addListener(downloadLink, 'click', function() {
+		ga('send', 'event', 'paper', 'click', 'nav-buttons');
+		});
+
+
+		/**
+		 * Utility to wrap the different behaviors between W3C-compliant browsers
+		 * and IE when adding event handlers.
+		 *
+		 * @param {Object} element Object on which to attach the event listener.
+		 * @param {string} type A string representing the event type to listen for
+		 *     (e.g. load, click, etc.).
+		 * @param {function()} callback The function that receives the notification.
+		 */
+		function addListener(element, type, callback) {
+		 if (element.addEventListener) element.addEventListener(type, callback);
+		 else if (element.attachEvent) element.attachEvent('on' + type, callback);
+		}
 	</ul>
 	
 </div><!-- /.blurb -->
