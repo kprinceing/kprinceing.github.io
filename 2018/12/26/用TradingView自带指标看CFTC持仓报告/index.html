@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>用TradingView自带指标看CFTC持仓报告 - Yan Song</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+<link href="https://cdn.bootcss.com/hover.css/2.3.1/css/hover-min.css" rel="stylesheet">
+
+<meta name="description" content="About me and my research">
+
+
+
+<meta name="keywords" content="Yan Song">
+
+
+
+    <meta name="description" content="这篇文章将教你非常简单的使用TradingView自带的指标工具来查询每周的CFTC持仓报告，并教你简单的打造出适合自己需求的美观的CFTC持仓报告图表。 什么是CFTC持仓报告为了照顾到很多新接触交易的朋友，在文章最前面先简单介绍一下CFTC持仓报告：  CFTC持仓报告是CFTC(U.S COMMODITIY FUTURES TRADING COMMISSION美国商品期货交易委员会)每周五发">
+<meta name="keywords" content="Yan Song">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用TradingView自带指标看CFTC持仓报告">
+<meta property="og:url" content="https://yansong.org/2018/12/26/用TradingView自带指标看CFTC持仓报告/index.html">
+<meta property="og:site_name" content="Yan Song">
+<meta property="og:description" content="这篇文章将教你非常简单的使用TradingView自带的指标工具来查询每周的CFTC持仓报告，并教你简单的打造出适合自己需求的美观的CFTC持仓报告图表。 什么是CFTC持仓报告为了照顾到很多新接触交易的朋友，在文章最前面先简单介绍一下CFTC持仓报告：  CFTC持仓报告是CFTC(U.S COMMODITIY FUTURES TRADING COMMISSION美国商品期货交易委员会)每周五发">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-cme.png-slim">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-quandl.png">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-bloomberg.png-slim">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-oanda.png-slim">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-99qh.png">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-tradingview1.png-slim">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-tradingview2.png-slim">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-tradingview3.png-slim">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-tradingview4.png-slim">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-tradingview5.png-slim">
+<meta property="og:image" content="https://img.pbeta.cn/01/1810/1/cftc-tradingview6.png-slim">
+<meta property="og:updated_time" content="2018-12-25T16:57:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用TradingView自带指标看CFTC持仓报告">
+<meta name="twitter:description" content="这篇文章将教你非常简单的使用TradingView自带的指标工具来查询每周的CFTC持仓报告，并教你简单的打造出适合自己需求的美观的CFTC持仓报告图表。 什么是CFTC持仓报告为了照顾到很多新接触交易的朋友，在文章最前面先简单介绍一下CFTC持仓报告：  CFTC持仓报告是CFTC(U.S COMMODITIY FUTURES TRADING COMMISSION美国商品期货交易委员会)每周五发">
+<meta name="twitter:image" content="https://img.pbeta.cn/01/1810/1/cftc-cme.png-slim">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <!-- <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a> -->
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item hvr-shadow " href="/">Home</a>
+            
+            <a class="navbar-item hvr-shadow " href="/research">Research</a>
+            
+            <a class="navbar-item hvr-shadow " href="/archives">Teaching</a>
+            
+            <a class="navbar-item hvr-shadow " href="/CV">CV</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/kprinceing">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            用TradingView自带指标看CFTC持仓报告
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-12-25T16:43:35.000Z" itemprop="datePublished">12月 26 2018</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/teaching/">teaching</a>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>这篇文章将教你非常简单的使用TradingView自带的指标工具来查询每周的CFTC持仓报告，并教你简单的打造出适合自己需求的美观的CFTC持仓报告图表。</p>
+<h2 id="什么是CFTC持仓报告"><a href="#什么是CFTC持仓报告" class="headerlink" title="什么是CFTC持仓报告"></a>什么是CFTC持仓报告</h2><p>为了照顾到很多新接触交易的朋友，在文章最前面先简单介绍一下CFTC持仓报告：</p>
+<blockquote>
+<p>CFTC持仓报告是CFTC(U.S COMMODITIY FUTURES TRADING COMMISSION美国商品期货交易委员会)每周五发布的一份报告，提交者是来自芝加哥、纽约、堪萨斯城和明尼安纳波利斯的期货或期权交易所。这份报告将市场内的交易者分为3类并分别记录和统计这3类交易者在当周周二收盘时的仓位分布，投资者从而可以对当周市场内各商品期货的供求状况有个大概了解。报告的主要作用在于为投资者提供较为及时的各个期货市场内交易情况的信息，增进期货交易市场的透明度。</p>
+</blockquote>
+<a id="more"></a>
+<p>CFTC持仓报告虽然在时间上有所滞后，但仍然能够为我们提供非常有价值的参考信息，在CFTC持仓报告的具体使用方式上本文不作展开，在本文的最后会提供一些文章和书籍的链接供有兴趣的朋友学习。</p>
+<h2 id="在哪里可以查阅CFTC持仓报告"><a href="#在哪里可以查阅CFTC持仓报告" class="headerlink" title="在哪里可以查阅CFTC持仓报告"></a>在哪里可以查阅CFTC持仓报告</h2><h3 id="CFTC官方网站的原始版本"><a href="#CFTC官方网站的原始版本" class="headerlink" title="CFTC官方网站的原始版本"></a>CFTC官方网站的原始版本</h3><p>CFTC官方提供报告的两种格式，分别是Long Format和Short Format，Long Format包含更多信息，但一般查看Short Format所提供的信息就够了，从CFTC官方网站的可以非常容易的查看最近一周的数据以及历史数据。</p>
+<p><strong>当周数据</strong>请点击<a href="https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm" target="_blank" rel="noopener">这个链接</a>，比如我们交易外汇则主要关注<strong>Chicago Mercantile Exchange</strong>，点击其后面对应的<a href="https://www.cftc.gov/dea/futures/deacmesf.htm" target="_blank" rel="noopener">链接</a>就可以访问到当周的持仓情况，拿欧元举例，你从文件里搜索”Euro”，可以看到欧元相关的内容是这样的：<br><img src="https://img.pbeta.cn/01/1810/1/cftc-cme.png-slim" alt=""></p>
+<p><strong>历史数据</strong>请点击<a href="https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalCompressed/index.htm" target="_blank" rel="noopener">这个链接</a>,这里最早可以下载到1986年的数据。</p>
+<p>下载的时候一般只需要下载Futures Only Reports就可以了，另外的Futures-and-Options Combined Reports是把和相关品种有关的期权经过加权后一起统计了，理论上讲更准确，但差别不大，具体细节我这种水平也说不清楚，从目前看到的各种版本的图表来看，既有包含期权的版本也有不包含的，我们即将要使用的工具中可以通过简单的选中或者不选中Options相关的选项来进行切换，所以也不用担心。</p>
+<h3 id="Quandl网站的优化版本"><a href="#Quandl网站的优化版本" class="headerlink" title="Quandl网站的优化版本"></a>Quandl网站的优化版本</h3><p>Quandl是为投资专业人士提供财务、经济和替代数据的平台，拥有海量数据，并提供专业的API访问功能，有量化投资的朋友应该都会比较熟悉。针对CFTC数据，Quandl提供了非常友好的展示方式，可通过访问<a href="https://www.quandl.com/data/CFTC-Commodity-Futures-Trading-Commission-Reports" target="_blank" rel="noopener">这个链接</a>查看，在页面中搜索所要查看的品种，如”Euro”,相关信息就会显示出来，从出现的结果中寻找包括”noncommercial”字样的进行查看：<br><img src="https://img.pbeta.cn/01/1810/1/cftc-quandl.png" alt="Quandl数据"><br>还可以自行查看包括其他市场参与者的表格以及交易者数量、仓位变化等单独的列表信息。</p>
+<h3 id="图表化版本"><a href="#图表化版本" class="headerlink" title="图表化版本"></a>图表化版本</h3><p>互联网上有很多对CFTC数据进行加工的图形化分析，来源广泛，但无法自定义，美观程度上也不高：</p>
+<h4 id="1-BloomBerg终端"><a href="#1-BloomBerg终端" class="headerlink" title="1. BloomBerg终端"></a>1. BloomBerg终端</h4><p>彭博终端自然强大，但除非在购买了账号的金融机构工作，否则普通交易者一般不会自己购买使用：<br><img src="https://img.pbeta.cn/01/1810/1/cftc-bloomberg.png-slim" alt=""></p>
+<h4 id="2-部分交易平台"><a href="#2-部分交易平台" class="headerlink" title="2. 部分交易平台"></a>2. 部分交易平台</h4><p>比如OANDA会将每周的CFTC持仓进行图形化后发布在其官方网站上，可以访问<a href="https://www.oanda.com/forex-trading/analysis/commitments-of-traders#cot" target="_blank" rel="noopener">这个链接</a>。<br><img src="https://img.pbeta.cn/01/1810/1/cftc-oanda.png-slim" alt=""></p>
+<h4 id="3-其他"><a href="#3-其他" class="headerlink" title="3. 其他"></a>3. 其他</h4><p>在很多交易相关的网站上都可能有CFTC相关的数据，如99期货网可以查询到最新数据，并有一个不太美观的图表展示，具体可点击<a href="https://www.99qh.com/d/cftc.aspx" target="_blank" rel="noopener">这个链接</a>，图表大约是这样的：<br><img src="https://img.pbeta.cn/01/1810/1/cftc-99qh.png" alt=""></p>
+<h4 id="4-TradingView内置指标工具"><a href="#4-TradingView内置指标工具" class="headerlink" title="4. TradingView内置指标工具"></a>4. TradingView内置指标工具</h4><p>本文将重点展示使用TradingView内置的指标工具来查询CFTC持仓，优点很多：</p>
+<ul>
+<li>可自定义展示哪些——仅非商业、商业和非商业、仅散户或者全部包括（如果你还能看得清楚的话）</li>
+<li>界面可以自定义，可以按你喜欢的样子展示</li>
+<li>可编程，对于熟悉编程的朋友可以自己动手改写代码</li>
+</ul>
+<blockquote>
+<p><strong>稍微介绍下TradingView:</strong><br>TradingView网站既是一个强大的交易员图表工具，又是一个交易社区————作为图表工具其美观度和易用度都很高，国内类似网站如华尔街日报中的图表工具就是使用的TradingView的API，而作为交易社区，你可以自由的发表自己的观点并和全世界的交易员分享。目前TradingView已经上线了中文版本，另外在指标上TradingView与MetaTrader类似同样是开放的，每个人都可以自己编写指标并发布供其他人使用。<br>中文网站可以访问<a href="https://cn.tradingview.com" target="_blank" rel="noopener">这个链接</a>。</p>
+</blockquote>
+<h2 id="使用TradingView自带指标查看CFTC持仓报告"><a href="#使用TradingView自带指标查看CFTC持仓报告" class="headerlink" title="使用TradingView自带指标查看CFTC持仓报告"></a>使用TradingView自带指标查看CFTC持仓报告</h2><h3 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h3><p>配置完成后大约是这样的，当然还有很多改进空间：<br><img src="https://img.pbeta.cn/01/1810/1/cftc-tradingview1.png-slim" alt=""><br>我们主要关注最有价值的非商业持仓情况，有兴趣的朋友还可以自制仅包括商业持仓的图表或者包括所有市场参与者的持仓的图表。</p>
+<h3 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法"></a>具体方法</h3><h4 id="1-打开交互式图表"><a href="#1-打开交互式图表" class="headerlink" title="1. 打开交互式图表"></a>1. 打开交互式图表</h4><p><img src="https://img.pbeta.cn/01/1810/1/cftc-tradingview2.png-slim" alt=""></p>
+<h4 id="2-增加COT相关指标"><a href="#2-增加COT相关指标" class="headerlink" title="2. 增加COT相关指标"></a>2. 增加COT相关指标</h4><p>在图表上方找到<strong>~指标</strong>，点击后出现指标选择窗口，可以看到TradingView支持的所有指标，其中包括很多与CFTC持仓情况相关的指标，个人经过筛选，推荐使用以下两个：</p>
+<ul>
+<li>COT (Legacy): Noncommercial Interest——包括非商业持仓</li>
+<li>COT (Legacy): Commercial Interest——包括商业持仓</li>
+</ul>
+<p>作者Greeny还提供了大量其他的COT相关的脚本，除了直接使用外，还可以自行修改代码进行定制。</p>
+<p>大部分CFTC持仓报告分析都比较关注非商业持仓（也就是大的投机交易商），他们的主要操作风格就是追涨杀跌，因此从其持仓情况可以了解到市场情绪，有一定参考价值，但《与狼共舞》这本专门介绍CFTC持仓的书的作者拉瑞· 威廉姆斯则非常推崇跟随商业持仓的脚步，具体这里就不作分析，只能说信息在那里，具体使用还是要具体分析。</p>
+<h4 id="3-调整指标样式"><a href="#3-调整指标样式" class="headerlink" title="3. 调整指标样式"></a>3. 调整指标样式</h4><p>这里以<strong>COT (Legacy): Noncommercial Interest</strong>这个指标为例，插入指标后我们看到的窗口是这样的：<br><img src="https://img.pbeta.cn/01/1810/1/cftc-tradingview3.png-slim" alt=""><br>三根线依次是：非商业多头持仓、非商业空头持仓、非商业套利持仓、那个柱状线则是非商业净持仓，很明显这样非常不方便查看，但我们只需要做简单的调整就可以获得与上文中彭博终端中的图表类似的图表，只需要加粗多头持仓、空头持仓，将套利持仓显示为面积图（直接加粗也可以，这部分影响不大），并将净持仓显示为更优雅的柱状图即可。<br>点击指标窗口左上角的设置图标，进入配置界面，并按如下设置：<br><img src="https://img.pbeta.cn/01/1810/1/cftc-tradingview4.png-slim" alt=""><br><del>请不要吐槽TradingView的渣中文翻译，把多头翻译成长线，空头翻译成短期，套利持仓翻译成点差……，所以英文过关的朋友还是直接用英文版本比较舒心</del><br>颜色和透明度都可以根据自己的需要设置，满意了以后记得点击左下角的”系统预设”，从弹出的下拉菜单中选择”保存为默认”，以后每次都会按你本次设置的显示：<br><img src="https://img.pbeta.cn/01/1810/1/cftc-tradingview5.png-slim" alt=""><br>另外，在配置界面中的”输入数值”页中，选中”Includ Options”即可显示CFTC报告中的Futures-and-Options Combined Reports的数据。</p>
+<h4 id="4-进阶——通过修改源代码自定义"><a href="#4-进阶——通过修改源代码自定义" class="headerlink" title="4. 进阶——通过修改源代码自定义"></a>4. 进阶——通过修改源代码自定义</h4><p>在指标窗口中点击最右侧的…可查看源代码内容，如我们刚刚使用的<strong>COT (Legacy): Noncommercial Interest</strong>,其代码如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">study(&quot;Commercial Interest&quot;, shorttitle=&quot;Com Int&quot;, precision=0)</span><br><span class="line">force_root = input(&quot;&quot;, title=&quot;Override Product&quot;)</span><br><span class="line">is_includeoptions = input(false, type=bool, title=&quot;Include Options&quot;)</span><br><span class="line"></span><br><span class="line">fxroot =</span><br><span class="line">	  ticker == &quot;USDCAD&quot; ? &quot;CD&quot; : </span><br><span class="line">	  ticker == &quot;USDCAD&quot; ? &quot;CD&quot; : </span><br><span class="line">	  ticker == &quot;USDCHF&quot; ? &quot;SF&quot; : </span><br><span class="line">	  ticker == &quot;USDCZK&quot; ? &quot;CZ&quot; : </span><br><span class="line">	  ticker == &quot;USDHUF&quot; ? &quot;FR&quot; : </span><br><span class="line">	  ticker == &quot;USDILS&quot; ? &quot;IS&quot; : </span><br><span class="line">	  ticker == &quot;USDJPY&quot; ? &quot;JY&quot; : </span><br><span class="line">	  ticker == &quot;USDMXN&quot; ? &quot;MP&quot; : </span><br><span class="line">	  ticker == &quot;USDNOK&quot; ? &quot;UN&quot; : </span><br><span class="line">	  ticker == &quot;USDPLN&quot; ? &quot;PZ&quot; : </span><br><span class="line">	  ticker == &quot;USDRUB&quot; ? &quot;RU&quot; : </span><br><span class="line">	  ticker == &quot;USDSEK&quot; ? &quot;SE&quot; : </span><br><span class="line">	  ticker == &quot;USDZAR&quot; ? &quot;RA&quot; : </span><br><span class="line">	  ticker == &quot;EURUSD&quot; ? &quot;EC&quot; : </span><br><span class="line">	  ticker == &quot;AUDUSD&quot; ? &quot;AD&quot; : </span><br><span class="line">	  ticker == &quot;GBPUSD&quot; ? &quot;BP&quot; : </span><br><span class="line">	  ticker == &quot;NZDUSD&quot; ? &quot;NE&quot; : </span><br><span class="line">	  ticker == &quot;BRLUSD&quot; ? &quot;BR&quot; : </span><br><span class="line">	  &quot;&quot;</span><br><span class="line">root = force_root == &quot;&quot; ? fxroot == &quot;&quot; ? syminfo.root : fxroot : force_root</span><br><span class="line">code = root + (is_includeoptions ? &quot;_FO_L_ALL&quot; : &quot;_F_L_ALL&quot;)</span><br><span class="line"></span><br><span class="line">is_inversed = </span><br><span class="line">	  ticker == &quot;USDCAD&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDCAD&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDCHF&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDCZK&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDHUF&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDILS&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDJPY&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDMXN&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDNOK&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDPLN&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDRUB&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDSEK&quot; ? true : </span><br><span class="line">	  ticker == &quot;USDZAR&quot; ? true : </span><br><span class="line">	  false</span><br><span class="line"></span><br><span class="line">long_total = security(&quot;QUANDL:CFTC/&quot;+code+&quot;|4&quot;, &quot;D&quot;, close)</span><br><span class="line">short_total = security(&quot;QUANDL:CFTC/&quot;+code+&quot;|5&quot;, &quot;D&quot;, close)</span><br><span class="line"></span><br><span class="line">long = is_inversed ? short_total : long_total</span><br><span class="line">short = is_inversed ? long_total : short_total</span><br><span class="line"></span><br><span class="line">plot(long, color = green, title=&quot;Long&quot;)</span><br><span class="line">plot(short, color = red, title=&quot;Short&quot;)</span><br><span class="line">plot(long-short, color = yellow, title=&quot;Net&quot;, style=histogram)</span><br><span class="line">hline(0, color=yellow, linestyle=dashed)</span><br></pre></td></tr></table></figure>
+<p>这是使用TradingView提供的Pine脚本语言所编写的，不需要有什么编程基础我们就能基本读懂代码内容，需要自定义的朋友完全可以复制一份，然后自己新建脚本增加自己所需要的功能，如增加总持仓的选项，只需要加一行代码：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot(long+short, color = black, title=&quot;Total&quot;, style=histogram)</span><br></pre></td></tr></table></figure>
+<p>然后调节一下样式即可，效果如下：</p>
+<p><img src="https://img.pbeta.cn/01/1810/1/cftc-tradingview6.png-slim" alt=""></p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>其实本文并没有教什么，只是简单的提供了一种CFTC持仓查看方法，权当抛砖引玉，用同样的方法可以配置查看商业、散户等的持仓变化情况。TradingView非常强大，和CFTC持仓相关的指标也不止这几个，有兴趣的朋友完全可以自己发掘。</p>
+<p>对CFTC持仓有兴趣的朋友可以看一下知识上的<a href="https://zhuanlan.zhihu.com/p/28542251" target="_blank" rel="noopener">这篇文章</a>,其中提到的《与狼共舞》这本书可以从<a href="https://1drv.ms/b/s!AqI8LolH3-P4pV7m3rOZuAMMAXKK" target="_blank" rel="noopener">这里</a>下载（共享文件由OneDrive提供）。</p>
+
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2019/01/03/新文章/">新文章</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2018/12/25/hello-world/">Hello World</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+    </div>
+</section>
+
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Yan Song&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/kprinceing">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
