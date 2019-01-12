@@ -91,7 +91,7 @@
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="Search" href="javascript:;">
+            <a class="navbar-item search" title="Buscar" href="javascript:;">
                 <i class="fas fa-search"></i>
             </a>
             
@@ -121,7 +121,7 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/01/07/tabout/" itemprop="url">STATA制作之：Tabout</a>
+            <a href="/2019/01/07/tabout/" itemprop="url">STATA教程之：Tabout</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -133,7 +133,7 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h1 id="STATA制作之：Tabout"><a href="#STATA制作之：Tabout" class="headerlink" title="STATA制作之：Tabout"></a>STATA制作之：Tabout</h1><p>[TOC]</p>
+        <p>[TOC]</p>
 <h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><p>2018.06.24 初稿</p>
 <p>2018.07.19 第二稿</p>
 <p>2018.08.03 终稿</p>
@@ -196,7 +196,7 @@
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h1 id="STATA教程之：Estout"><a href="#STATA教程之：Estout" class="headerlink" title="STATA教程之：Estout"></a>STATA教程之：Estout</h1><p>[TOC]</p>
+        <p>[TOC]</p>
 <h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><p>2018.06.13 初稿<br>2018.07.15 第二稿</p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>STATA是回归分析的最常用的工具。当我们进行了大量的回归分析之后通常需要解决三个问题。怎样才能直观的展示需要关注的系数？如何才能方便的对比不同回归中的系数？怎样才能生成论文中可以直接使用的高质量的回归表格？本教程将试图对这三个问题给出自己的理解。</p>
 <p>本教程将使用STATA中的Estout Package来回答以上三个问题。Estout功能非常强大，其中包括了estout, esttab, estadd等命令。Estout的具体细节介绍可以参考<a href="http://repec.sowi.unibe.ch/stata/estout/" target="_blank" rel="noopener">官方介绍文档</a>。 但是由于它的选项非常丰富，学习起来有一定的难度，因此本文旨在对Estout的使用方法进行总结，来达到降低使用estout制作表格的难度的目的。</p>
@@ -216,6 +216,173 @@
 <p>STATA在执行完上述代码后，会生成一个estout_eg.tex的文档。通过Latex编译这个文档，我们可以得到如下图所示的<img src="https://i.imgur.com/et2Vw13.png" alt="PDF文档"></p>
 <p>代码下载链接<br>完整版本PDF下载链接</p>
 <p>版权声明</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/01/07/mle_summary/" itemprop="url">Maximum Likelihood Estimation in STATA</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-07T08:28:52.000Z" itemprop="datePublished">1月 7 2019</time>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>STATA本身有很多estimator是通过MLE方法估计的，例如logit, probit等。在这些模型之外，STATA同时提供了ML syntax来拓展可以估计maximum likelihood模型。下面我们举例子说明ML syntax的用法。</p>
+<h2 id="LF-Estimator"><a href="#LF-Estimator" class="headerlink" title="LF Estimator"></a>LF Estimator</h2><p>当整体样本的Log likelihood可以通过每个样本点的log  likelihood累加得到时，STATA认为这类模型符合线性约束(Linear Form Restriction)，可以使用STATA ML syntax中的lf方法来估计这类模型。我们将使用lf方法来估计四种常见的模型: binary logit, binary probit, OLS, and mixed logit model.</p>
+<h3 id="Logit-Model"><a href="#Logit-Model" class="headerlink" title="Logit Model"></a>Logit Model</h3><p>Log Likelihood formula for Logit Model：<br>prob(y=1) = exp(xb)/(1+exp(xb))</p>
+<p>Code:<br>‘’’</p>
+<pre><code>program logit_lf
+    args lnfj theta 
+    tempvar p 
+    local y $ML_y1
+    quietly gen `p&apos; = exp(`theta&apos;)/(1+exp(`theta&apos;))
+    quietly replace `lnfj&apos; = ln(`p&apos;) if `y&apos; == 1
+    quietly replace `lnfj&apos; = ln(1-`p&apos;) if `y&apos; == 0
+end
+
+sysuse auto, clear
+ml model lf logit_lf (eq1: foreign = weight length)
+ml maximize
+</code></pre><p>‘’’</p>
+<p>几个要注意的点：</p>
+<pre><code>+ args 是STATA提供的一种parse的工具，是把positional argument变成指定的local。例如，ml提供的第一个argument通过args变成了local lnfj，而在剩下的程序里，都将以`lnfj&apos;的形式出现。
++ program 中的theta是所有x和系数的linear combination。这是使用lf方法最方便的地方，不需要考虑单独的系数大小，而是把系数的linear combination放在一起考虑。
++ lnfj 是每个observation 的log likelihood.
++ $ML_y1 是第一个公式中的 dependent variable，以global 的形式存在。
++ 所有program 中使用的新的变量要用tempvar
++ ml model lf logit_lf (eq1: foreign = weight length) 这一行是定义模型，即使用lf方法的logit_lf模型，模型中的y是foreign，而解释变量包括了weight和length。
++ ml maximize 这一行是对上述模型进行求解，计算出对应最大loglikelihood的参数。
+</code></pre><h3 id="Probit-Model"><a href="#Probit-Model" class="headerlink" title="Probit Model"></a>Probit Model</h3><p>类似地，我们可以通过lf方法估计probit模型：<br>‘’’</p>
+<pre><code>program probit_lf
+    args theta lnfj
+    local y $ML_y1
+    quietly replace `lnfj&apos; = ln(normal(`theta&apos;)) if `y&apos; == 1
+    quietly replace `lnfj&apos; = ln(-normal(`theta&apos;)) if `y&apos; == 0
+end
+</code></pre><p>‘’’</p>
+<h3 id="Linear-Regression-Model"><a href="#Linear-Regression-Model" class="headerlink" title="Linear Regression Model"></a>Linear Regression Model</h3><p>线性回归模型(homoskedastic standard errors)也可以通过lf方法实现：<br>‘’’<br>    program ols_lf<br>        args lnfj theta std<br>        local y $ML_y1<br>        quietly replace <code>lnfj&#39; = ln(normalden(</code>y’,<code>theta&#39;,</code>std’))<br>    end</p>
+<pre><code>ml model lf ols_lf (eq1: mileage = weight length) (eq2:)
+* ml model lf ols_lf (eq1: mileage = weight length) /eq2 
+ml maximize 
+</code></pre><p>‘’’</p>
+<p>要注意的点：</p>
+<ul>
+<li>Linear regression model和前面的logit probit模型不同的地方在于：线性回归模型的log likelihood不能通过一个theta(linear combination of variables)来表达，而是由两个系数同时决定的，一个是所有变量的线性组合，一个是残差项的standard deviation。因此，我们需要在写函数，和使用ml model时候都要做出相应的调整。首先，ml model 要加入第二个公式，即(eq2:)。这里，由于模型的假设包括了homoskedasticity,残差项的std不和任何解释变量相关，因此(eq2:)中不需要包括任何解释变量，只需要一个constant变量即可。</li>
+<li>当放松homoskedasticity的假设时，我们只需要稍微修改ml model中的eq2部分即可。</li>
+</ul>
+<h3 id="Mixed-Binary-Logit-Model"><a href="#Mixed-Binary-Logit-Model" class="headerlink" title="Mixed Binary Logit Model"></a>Mixed Binary Logit Model</h3><p>Logit model虽然直观易估计，但是对于individual preference有比较强的限制。因此，我们可以估计一个mixed binary logit model，来解决这个问题。但是mixed logit model的log likelihood表达式没有closed form solution,因此只能通过simulation来解决，而STATA的ML syntax可以较好的提供simulation的方法。</p>
+<pre><code>// Simulate data for estimation 
+/*
+x~N(0,1)
+beta1 = 1
+beta2 ~ N(1,1)
+epsilon~ extreme value distribution
+y = (beta_1+ beta_2*x +epsilon&gt;0)
+*/
+
+clear
+set obs 1000
+set seed 10101
+gen x = rnormal()
+gen beta_1 = 1
+gen beta_2 = rnormal(1,1)
+gen u = uniform()
+gen epsilon = log(u)-log(1-u)
+gen y = (beta_1 + beta_2*x+epsilon) &gt; 0
+forvalues i = 1/1000{
+    quietly gen draw_`i&apos; = uniform()
+}
+
+program mixed_logit
+   args lnfj beta_1 beta_2 std 
+   tempvar p sim_f sim_avg_f
+   quietly gen `sim_avg_f&apos; = 0
+   quietly{
+   forvalues i = 1/1000{
+       gen `p&apos; = exp(`beta&apos;1+`beta_2&apos;*x +  /// `std&apos;*`draw_i&apos;*x)/(1+exp(`beta&apos;1+`beta_2&apos;*x + `std&apos;*`draw_i&apos;*x))
+       gen `sim_f&apos; = `p&apos; if $ML_y1 == 1
+       replace `sim_f&apos; = 1- `p&apos; if $ML_y1 == 0
+       replace `sim_avg_f` = `sim_avg_f` + `sim_f`/1000
+   }
+   replace `lnfj&apos; = ln(sim_avg_f)
+   }
+end
+
+ml model lf mixed_logit (beta_1:y = )(beta_2:x)(std:)
+ml maximize
+</code></pre><p>这里需要注意的是：</p>
+<ul>
+<li>Log likelihood是一千次Simulation的平均。</li>
+<li>由于Log likelihood不能够通过所有变量的线性组合来表示，我们需要把系数拆分成三个部分，常数项的系数，变量X的系数的均值，变量X的std.这样的拆分不影响我们使用lf方法，因为样本的log likelihood仍然是由所有的样本的Log likelihood加总得到。</li>
+</ul>
+<h2 id="D0-Estimator"><a href="#D0-Estimator" class="headerlink" title="D0 Estimator"></a>D0 Estimator</h2><p>上述lf estimator只适用于样本的log likelihood仍然是由所有的样本的Log likelihood加总得到的情况，当上述条件不成立时，我们需要使用STATA提供的d0 estimator. D0 estimator的特点是我们需要在模型中提供整体样本的log likelihood，而不是每个单独样本点的log likelihood。下面我们用Conditional logit model来说明d0 estimator的用法。</p>
+<h3 id="Conditional-Multinomial-Logit-Model"><a href="#Conditional-Multinomial-Logit-Model" class="headerlink" title="Conditional Multinomial Logit Model"></a>Conditional Multinomial Logit Model</h3><p>Model:<br>Individual: indexed by i<br>Choice situation: indexed by j<br>U_ij = XB+ epsilon, epsilon~extreme value distribution<br>Log Likelihood if choice j is chosen: exp(x_kb)/\sum(exp(x_jb))</p>
+<p>Code: </p>
+<pre><code>cls
+program drop _all
+webuse choice,clear
+gen japan = car==2
+gen europe = car ==3 
+
+program clogit_sch 
+version 14
+/* 
+model: lnfi = exp(xb)/(\sum exp(xb))
+*/
+args todo b lnf 
+tempvar xb e_xb sum_e_xb lnfj
+// local group_id $ML_id 
+local y $ML_y1
+mleval `xb&apos; = `b&apos;, eq(1)
+sort id
+quietly{
+    gen `e_xb&apos; = exp(`xb&apos;)
+    bysort id: egen `sum_e_xb&apos; = total(`e_xb&apos;)
+    gen double `lnfj&apos;   = ln(`e_xb&apos;/`sum_e_xb&apos;)
+    mlsum `lnf&apos; = `lnfj&apos; if `y&apos; == 1
+}
+end
+
+
+global ML_id id 
+ml model d0 clogit_d0 (eq1: choice = dealer japan europe) 
+ml check 
+ml max
+</code></pre><p>需要注意的是：</p>
+<ul>
+<li>mleval: 计算系数<code>b&#39;带来的linear combination的</code>xb’。</li>
+<li>mlsum: 计算所有相关的loglikelihood的总和。</li>
+<li>mlcheck：用来对ml model进行debug。</li>
+</ul>
+<p>和STATA提供改的asclogit的结果进行对比</p>
+<pre><code>webuse choice,clear   
+set more off
+gen japan = car==2
+gen europe = car ==3 
+cd C:/Users/yan/Dropbox/college_entrance_exam/program/2018.12
+program drop _all
+global ML_id id 
+ml model d0 clogit_sch (eq1: choice = dealer japan europe,noconstant) 
+ml check 
+ml max  
+asclogit choice dealer, case(id) alternatives(car)
+</code></pre><p>这里需要指出，asclogit会在后台生成choice specific fixed effect,而我们的estimator需要自己生成这些变量，加入到模型中，但是好处是我们的模型更加flexible。</p>
+<p>另外几个很有用的ml command是 ml query, ml report, ml init,和 ml graph。ml query是显示目前处理的模型，包括了每条equation,变量，和系数的初始值。ml report会显示目前的系数vector, gradient vector, negative Hessian, and maximization direction。ml init用来设置模型参数的初始值，例如 ml init 1 2 -2, copy。Ml graph可以用来检测潜在的convergence issue。Newton-Rhapson 是默认的maximization routine，可以通过technique()选项来尝试其他方法，例如bhhh, dfp, and bfgs等。</p>
 
     
     </div>
@@ -368,7 +535,7 @@
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Escribe algo...">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -381,10 +548,10 @@
         var INSIGHT_CONFIG = {
             TRANSLATION: {
                 POSTS: 'Posts',
-                PAGES: 'Pages',
-                CATEGORIES: 'Categories',
+                PAGES: 'Páginas',
+                CATEGORIES: 'Categorías',
                 TAGS: 'Tags',
-                UNTITLED: '(Untitled)',
+                UNTITLED: '(Sin título)',
             },
             CONTENT_URL: '/content.json',
         };
