@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Categories - Yan Song</title>
+<title>Sublime Tricks - Yan Song</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -16,17 +16,18 @@
 
 
 
-    <meta name="description" content="About me and my research">
-<meta name="keywords" content="SUBLIME,Sublime,STATA">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Yan Song">
-<meta property="og:url" content="https://yansong.org/categories/index.html">
+    <meta name="description" content="添加MATLAB Build System在Sublime中选择Tools -&amp;gt; Build System -&amp;gt; New Build System，系统会创建一个JSON文件，根据不同系统输入以下内容 1234&amp;#123;  &amp;quot;cmd&amp;quot;: [&amp;quot;/Applications/MATLAB_R2017b.app/bin/matlab&amp;quot;, &amp;quot;-">
+<meta name="keywords" content="Sublime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sublime Tricks">
+<meta property="og:url" content="https://yansong.org/2019/01/20/more on sublime/index.html">
 <meta property="og:site_name" content="Yan Song">
-<meta property="og:description" content="About me and my research">
+<meta property="og:description" content="添加MATLAB Build System在Sublime中选择Tools -&amp;gt; Build System -&amp;gt; New Build System，系统会创建一个JSON文件，根据不同系统输入以下内容 1234&amp;#123;  &amp;quot;cmd&amp;quot;: [&amp;quot;/Applications/MATLAB_R2017b.app/bin/matlab&amp;quot;, &amp;quot;-">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-20T09:00:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Yan Song">
-<meta name="twitter:description" content="About me and my research">
+<meta name="twitter:title" content="Sublime Tricks">
+<meta name="twitter:description" content="添加MATLAB Build System在Sublime中选择Tools -&amp;gt; Build System -&amp;gt; New Build System，系统会创建一个JSON文件，根据不同系统输入以下内容 1234&amp;#123;  &amp;quot;cmd&amp;quot;: [&amp;quot;/Applications/MATLAB_R2017b.app/bin/matlab&amp;quot;, &amp;quot;-">
 
 
 
@@ -108,20 +109,59 @@
     </div>
 </nav>
 
-    <section class="section section-heading">
+    <section class="section">
     <div class="container">
-        <div class="content">
-            <h5><i class="far fa-folder"></i>Categories</h5>
-        </div>
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Sublime Tricks
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-20T02:28:52.000Z" itemprop="datePublished">1月 20 2019</time>
+        </span>
+        
+        
     </div>
-</section>
-<section class="section">
-    <div class="container">
-        <div class="columns is-variable is-1 is-multiline is-mobile">
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="添加MATLAB-Build-System"><a href="#添加MATLAB-Build-System" class="headerlink" title="添加MATLAB Build System"></a>添加MATLAB Build System</h2><p>在Sublime中选择Tools -&gt; Build System -&gt; New Build System，系统会创建一个JSON文件，根据不同系统输入以下内容</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;cmd&quot;: [&quot;/Applications/MATLAB_R2017b.app/bin/matlab&quot;, &quot;-nosplash&quot;, &quot;-nodesktop&quot;,  &quot;-r&quot;, &quot;run(&apos;$file_name&apos;)&quot;],</span><br><span class="line">  &quot;selector&quot;: &quot;source.m&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面给出的路径是我的电脑中的配置，需要根据电脑中MATLAB安装路径来修改。其中，matlab -nosplash -nodesktop -r ${file_base_name}表示启动matlab，并运行某个.m文件。-nosplash表示不加载启动界面；-nodesktop表示不加载GUI界面；-r表示运行Matlab命令行（MATLAB_command）；filename表示文件名，但不包含文件扩展名，如.m等。设置完成后保存即可。</p>
+<p>保存好后可以打开一个.m文件，在Build System下选择刚新建的配置，按下快捷键Ctrl+B，Sublime会打开MATLAB_command并编译当前文件。<br>但是目前的方法仍然有缺陷，每次Build都会产生一个新的命令行界面，相当于每次都重新启动了一次MATLAB_command。</p>
+<h2 id="同步Sublime设置"><a href="#同步Sublime设置" class="headerlink" title="同步Sublime设置"></a>同步Sublime设置</h2><p>当我们使用多台电脑工作时，如果需要在每台电脑上重复安装所有的Sublime package将是非常麻烦的工作。Package Control提供了一种简便的同步方式。</p>
+<p>首先找到Packages/User/文件夹下面的Package Control.sublime-settings文件，然后将这个文件复制到其他电脑的同样位置下。重新启动Sublime时，Package Control将会安装所有缺失package的正确版本。当然，这样的方法不能够提供实时同步的功能。如果你希望不同电脑上的Sublime能够实时同步，有两种方法，一是使用git,二是使用drobox的symbolic link。第一种方法要方便的多。具体可以参考<a href="https://packagecontrol.io/docs/syncing" target="_blank" rel="noopener">https://packagecontrol.io/docs/syncing</a></p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Sublime/">#Sublime</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
             
-        </div>
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/01/12/mle_summary/">Maximum Likelihood Estimation in STATA</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
     </div>
 </section>
+
     <footer class="footer">
     <div class="container">
         <div class="columns content">
