@@ -91,7 +91,7 @@
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="검색" href="javascript:;">
+            <a class="navbar-item search" title="Buscar" href="javascript:;">
                 <i class="fas fa-search"></i>
             </a>
             
@@ -161,6 +161,33 @@ end
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">tic</span><br><span class="line">data = rand(5,1);</span><br><span class="line">for i =1:1e5</span><br><span class="line">    c_mod = nchoosek(1:5,3);</span><br><span class="line">    exp_cbnt = zeros(size(c_mod, 1), 3);</span><br><span class="line">    exp_cbnt(:,1) = data(c_mod(:,1),1);</span><br><span class="line">    for k = 2:3</span><br><span class="line">        exp_cbnt(:,k) = data(c_mod(:,k),1);</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line">toc</span><br></pre></td></tr></table></figure>
 <p>使用vectorization的方法如下。这里的思路是先计算最终需要得到的矩阵的row vector form (one dimension)，再通过reshape得到最终的目标矩阵。 使用vectorization的方法会比第一种for loop的方法节约大概百分之十的计算时间，loop次数越多节约的时间会越明显。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">tic</span><br><span class="line">for i =1:1e5</span><br><span class="line">    c_mod = nchoosek(1:5,3);</span><br><span class="line">    c_mod_length = size(c_mod, 1);</span><br><span class="line">    c_mod_vec = reshape(c_mod,c_mod_length*3,1);</span><br><span class="line">    exp_cbnt_vec  = data(c_mod_vec,1);</span><br><span class="line">    exp_cbnt_b = reshape(exp_cbnt_vec,c_mod_length,3);</span><br><span class="line">end</span><br><span class="line">toc </span><br><span class="line"></span><br><span class="line">isequal(exp_cbnt,exp_cbnt_b)</span><br></pre></td></tr></table></figure></p>
 <p>Vectorization的方法还有很多，这里无法一一列举，但是重要的是当我们看到for loop时，应该立刻去想是不是有可能用矩阵的方法来表达,然后再测试对比两种方法所花的时间.Matlab已经能够对for loop进行非常高效的优化了，所以并不是vectorization一定会节约时间。</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/05/17/talk/" itemprop="url">Talk on coding practice for IESR, Jinan</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-16T16:00:00.000Z" itemprop="datePublished">5月 17 2019</time>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="Slides"><a href="#Slides" class="headerlink" title="Slides"></a>Slides</h2><p><a href="http://cloud.pbeta.me/s/6DygHBjdyFrb7LB" target="_blank" rel="noopener">Slides</a></p>
 
     
     </div>
@@ -813,7 +840,7 @@ asclogit choice dealer, case(id) alternatives(car)
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="아무거나 입력하세요">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Escribe algo...">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -825,11 +852,11 @@ asclogit choice dealer, case(id) alternatives(car)
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: '글',
-                PAGES: '페이지',
-                CATEGORIES: '카테고리 목록',
-                TAGS: '태그 목록',
-                UNTITLED: '(제목없음)',
+                POSTS: 'Posts',
+                PAGES: 'Páginas',
+                CATEGORIES: 'Categorías',
+                TAGS: 'Tags',
+                UNTITLED: '(Sin título)',
             },
             CONTENT_URL: '/content.json',
         };
