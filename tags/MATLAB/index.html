@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Tag: MATLAB - Yan Song</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+<link href="https://cdn.bootcss.com/hover.css/2.3.1/css/hover-min.css" rel="stylesheet">
+
+<meta name="description" content="About me and my research">
+
+
+
+<meta name="keywords" content="Yan Song">
+
+
+
+    <meta name="description" content="About me and my research">
+<meta name="keywords" content="Yan Song">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yan Song">
+<meta property="og:url" content="https://yansong.org/tags/MATLAB/index.html">
+<meta property="og:site_name" content="Yan Song">
+<meta property="og:description" content="About me and my research">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yan Song">
+<meta name="twitter:description" content="About me and my research">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <!-- <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a> -->
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item hvr-shadow " href="/">Home</a>
+            
+            <a class="navbar-item hvr-shadow " href="/research">Research</a>
+            
+            <a class="navbar-item hvr-shadow " href="/archives">Teaching</a>
+            
+            <a class="navbar-item hvr-shadow " href="/cv">CV</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/kprinceing">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5>#MATLAB</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/05/31/tuning matlab code/" itemprop="url">Tuning MATLAB Code</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-31T08:28:52.000Z" itemprop="datePublished">5月 31 2019</time>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>写高效率的MATLAb code和写好英文文章的最核心，最重要的思路是完全一样的： 不要重复 (avoid redundancy). 做到了这一点，代码的效率会得到保障，也能让读者更好的理解自己英文文章的目的。</p>
+<p>这一个简单思路之所以如此重要是因为大部分MATLAB code的bottleneck都是重复次数非常多的for loop， 而for loop中即使一个很小的计算，在几万次的重复下也会对整体程序的效率起到很大的影响。因此，写好MATLAB code的关键就是如何避免重复计算。基于这点思路，下面具体介绍三类如何避免重复计算的方法</p>
+<h2 id="Move-loop-invariant-code-out-of-the-loop"><a href="#Move-loop-invariant-code-out-of-the-loop" class="headerlink" title="Move loop-invariant code out of the loop"></a>Move loop-invariant code out of the loop</h2><p>如果一个计算在每次loop时不发生变化，那么这个计算就应该被调整到for loop之外。这个思路虽然简单，但是有的时候并不是特别容易发现重复的计算，特别是这个计算是在另外一个函数中进行时。 下面举例说明：</p>
+<p>‘’’</p>
+<pre><code>for loopIDX = 1:1000
+    array =1:100;
+    process(array,loopIDX);
+end
+function process(array, loopIDX)
+    arrayLen = length(array);
+    for arrayIDX =1:arrayLen
+        doSomething(arrary(arrayIDX),loopIDX);
+    end
+end
+</code></pre><p>‘’’<br>这里的redundancy不是特别容易发现，arrayLen是在 process 函数里面计算的，但是这个变量不会因为loopIDX的改变而变化， 因此不需要重复计算。 优化后的代码如下</p>
+<p>‘’’</p>
+<pre><code>array =1:100;      
+arrayLen = length(array);
+for loopIDX = 1:1000
+    process(array,arrayLen,loopIDX);
+end
+function process(array,arrayLen,loopIDX)
+    for arrayIDX =1:arrayLen
+        doSomething(arrary(arrayIDX),loopIDX);
+    end
+end
+</code></pre><p>‘’’</p>
+<h2 id="Minimize-Dereferencing"><a href="#Minimize-Dereferencing" class="headerlink" title="Minimize Dereferencing"></a>Minimize Dereferencing</h2><p>不仅是不必要的计算需要尽量减少，其他一切会消耗计算时间的代码都需要优化。这里面就包括了：overhead of calling function and referencing. 每次call function和指代矩阵元素，不仅是函数计算和矩阵运算会耗费时间，而且会有额外的overhead的成本。 下面举例说明</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">a = [0,0];</span><br><span class="line">for idx =1:1e8</span><br><span class="line">    a(2)=a(2)+idx;</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = [0,0];</span><br><span class="line">b = 0;</span><br><span class="line">for idx =1:1e8</span><br><span class="line">    b = b +idx;</span><br><span class="line">end</span><br><span class="line">a(2) = b;</span><br></pre></td></tr></table></figure>
+<p>这几行代码只是对a(2)进行一个累计的加总，但是第一种方法由于每个loop里面都需要进行通过index找到a(2)具体值的计算，而第二种方法通过使用一个temporary variable b，避免了每次的索引运算，可以将运算时间从0.9秒缩短到0.5秒。</p>
+<h2 id="Vectorization"><a href="#Vectorization" class="headerlink" title="Vectorization"></a>Vectorization</h2><p>作为一个矩阵运算语言，MATLAB进行矩阵计算通常比通过for loop进行计算要更有效率，因此使用矩阵语言代替for loop通常能够节约计算时间，这种方法被统称为vectorization。下面，我们举一个例子，来介绍vectorization的思路。</p>
+<p>假设，我们有一个班级的学生成绩，以vector form储存。我们需要在这些学生中抽出4人组成一个小组,得到一个储存了每种可能的矩阵，每行对应抽中学生的成绩。 下面代码可以通过for loop来实现这一目的。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">tic</span><br><span class="line">data = rand(5,1);</span><br><span class="line">for i =1:1e5</span><br><span class="line">    c_mod = nchoosek(1:5,3);</span><br><span class="line">    exp_cbnt = zeros(size(c_mod, 1), 3);</span><br><span class="line">    exp_cbnt(:,1) = data(c_mod(:,1),1);</span><br><span class="line">    for k = 2:3</span><br><span class="line">        exp_cbnt(:,k) = data(c_mod(:,k),1);</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line">toc</span><br></pre></td></tr></table></figure>
+<p>使用vectorization的方法如下。这里的思路是先计算最终需要得到的矩阵的row vector form (one dimension)，再通过reshape得到最终的目标矩阵。 使用vectorization的方法会比第一种for loop的方法节约大概百分之十的计算时间，loop次数越多节约的时间会越明显。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">tic</span><br><span class="line">for i =1:1e5</span><br><span class="line">    c_mod = nchoosek(1:5,3);</span><br><span class="line">    c_mod_length = size(c_mod, 1);</span><br><span class="line">    c_mod_vec = reshape(c_mod,c_mod_length*3,1);</span><br><span class="line">    exp_cbnt_vec  = data(c_mod_vec,1);</span><br><span class="line">    exp_cbnt_b = reshape(exp_cbnt_vec,c_mod_length,3);</span><br><span class="line">end</span><br><span class="line">toc </span><br><span class="line"></span><br><span class="line">isequal(exp_cbnt,exp_cbnt_b)</span><br></pre></td></tr></table></figure></p>
+<p>Vectorization的方法还有很多，这里无法一一列举，但是重要的是当我们看到for loop时，应该立刻去想是不是有可能用矩阵的方法来表达,然后再测试对比两种方法所花的时间.Matlab已经能够对for loop进行非常高效的优化了，所以并不是vectorization一定会节约时间。</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Yan Song&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/kprinceing">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

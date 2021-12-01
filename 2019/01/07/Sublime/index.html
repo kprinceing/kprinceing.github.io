@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Sublime 教程 for Economists - Yan Song</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+<link href="https://cdn.bootcss.com/hover.css/2.3.1/css/hover-min.css" rel="stylesheet">
+
+<meta name="description" content="About me and my research">
+
+
+
+<meta name="keywords" content="Yan Song">
+
+
+
+    <meta name="description" content="前言随着大数据时代的到来，工作中对数据处理能力的要求越来越高。而不管我们使用何种软件，Python, Stata或是R，都要花大量的时间和编辑器打交道。一个好的编辑器能够显著提高编程效率，降低程序出错的概率。因此熟练掌握一款高效的编辑器是大数据时代的必备技能之一。 然而，大部分非计算机专业的人会因专用文本编辑器较高的学习成本望而却步，转而使用数据软件自带的编辑器，例如STATA do file e">
+<meta name="keywords" content="SUBLIME">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sublime 教程 for Economists">
+<meta property="og:url" content="https://yansong.org/2019/01/07/Sublime/index.html">
+<meta property="og:site_name" content="Yan Song">
+<meta property="og:description" content="前言随着大数据时代的到来，工作中对数据处理能力的要求越来越高。而不管我们使用何种软件，Python, Stata或是R，都要花大量的时间和编辑器打交道。一个好的编辑器能够显著提高编程效率，降低程序出错的概率。因此熟练掌握一款高效的编辑器是大数据时代的必备技能之一。 然而，大部分非计算机专业的人会因专用文本编辑器较高的学习成本望而却步，转而使用数据软件自带的编辑器，例如STATA do file e">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/hVI2c9w.png">
+<meta property="og:image" content="https://i.imgur.com/ewngg85.gif">
+<meta property="og:image" content="https://i.imgur.com/66kspEH.gif">
+<meta property="og:image" content="https://ojlty2hua.qnssl.com/image-1531799012834-5Yqo5Zu-My5naWY=.gif?imageView2/2/w/600/h/450/q/75|imageslim">
+<meta property="og:image" content="https://ojlty2hua.qnssl.com/image-1531799296394-5Yqo5Zu-NS5naWY=.gif?imageView2/2/w/600/h/450/q/75|imageslim">
+<meta property="og:image" content="https://i.imgur.com/I6DcJzs.gif">
+<meta property="og:image" content="https://i.imgur.com/nmdbycm.gif">
+<meta property="og:image" content="https://i.imgur.com/jBSP7so.gif">
+<meta property="og:updated_time" content="2019-01-12T02:24:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sublime 教程 for Economists">
+<meta name="twitter:description" content="前言随着大数据时代的到来，工作中对数据处理能力的要求越来越高。而不管我们使用何种软件，Python, Stata或是R，都要花大量的时间和编辑器打交道。一个好的编辑器能够显著提高编程效率，降低程序出错的概率。因此熟练掌握一款高效的编辑器是大数据时代的必备技能之一。 然而，大部分非计算机专业的人会因专用文本编辑器较高的学习成本望而却步，转而使用数据软件自带的编辑器，例如STATA do file e">
+<meta name="twitter:image" content="https://i.imgur.com/hVI2c9w.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <!-- <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a> -->
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item hvr-shadow " href="/">Home</a>
+            
+            <a class="navbar-item hvr-shadow " href="/research">Research</a>
+            
+            <a class="navbar-item hvr-shadow " href="/archives">Teaching</a>
+            
+            <a class="navbar-item hvr-shadow " href="/cv">CV</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/kprinceing">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Sublime 教程 for Economists
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-07T08:28:52.000Z" itemprop="datePublished">1月 7 2019</time>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着大数据时代的到来，工作中对数据处理能力的要求越来越高。而不管我们使用何种软件，Python, Stata或是R，都要花大量的时间和编辑器打交道。一个好的编辑器能够显著提高编程效率，降低程序出错的概率。因此熟练掌握一款高效的编辑器是大数据时代的必备技能之一。</p>
+<p>然而，大部分非计算机专业的人会因专用文本编辑器较高的学习成本望而却步，转而使用数据软件自带的编辑器，例如STATA do file editor,  MATLAB m file editor等。本文旨在为经济学专业的学生和老师，介绍一款文本编辑器，Sublime。本文将着重介绍<strong>Sublime的特点</strong>，及其<strong>与各种自带编辑器在比较之下的优势</strong>，而Sublime的安装和操作细节可参看<a href="https://www.cnblogs.com/figure9/p/sublime-text-complete-guide.html" target="_blank" rel="noopener">Sublime Text 全程指引 by Lucida</a></p>
+<p>希望你在看完本文后，能找到Sublime的使用窍门,提高工作效率。Happy coding!</p>
+<h2 id="插件系统与Package-Control"><a href="#插件系统与Package-Control" class="headerlink" title="插件系统与Package Control"></a>插件系统与Package Control</h2><p>虽然Sublime是一个商业开发具有版权的软件，但是它通过插件系统提供了强大的扩展性。目前，共有3,000多名作者开发了超过4,000种插件来满足开发者的不同需求。Package Control就是Sublime用来管理插件的系统。使用Package Control之前需要进行安装，安装方法详见<a href="https://Packagecontrol.io/" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="使用-Package-Control-安装插件"><a href="#使用-Package-Control-安装插件" class="headerlink" title="使用 Package Control 安装插件"></a>使用 Package Control 安装插件</h3><p>通过Package Control安装其他插件极为方便：按下快捷键Ctrl+Shift+P，打开Package Control, 接着键入install，回车选择install Package，接着输入你想要安装的插件，选中安装即可。</p>
+<p>我们先简单介绍下几款常用的插件及其主要功能，在接下来的几个部分里我们将对这些插件进行更为详细的介绍。</p>
+<ul>
+<li>StataEditor：实现在Sublime里直接调用STATA。</li>
+<li>LatexTools：在Sublime内编译Latex文档(需安装Sumatra Pdf Viewer)。</li>
+<li>LatexCwl：提供Latex语句的自动填充。</li>
+</ul>
+<h2 id="Project系统"><a href="#Project系统" class="headerlink" title="Project系统"></a>Project系统</h2><p>Sublime的另一个特色就是它的Project系统，为管理项目中的各种类型的文件提供了种较为方便的解决方案。</p>
+<p>当我们写论文时，通常会生成多种类型的程序文档，tex文档等。我们也经常需要同时打开多个程序文档来检查代码，会使得大多数编辑器的页面变得冗杂。Sublime设计的project系统有以下几个优势，使得管理一个项目变得轻松。</p>
+<h3 id="Project优势"><a href="#Project优势" class="headerlink" title="Project优势"></a>Project优势</h3><ul>
+<li><p>在侧边栏里显示所有文件，而非在主窗口打开。点击一次可以预览该文件，双击打开。<br><img src="https://i.imgur.com/hVI2c9w.png" alt="x"></p>
+</li>
+<li><p>同一个project内可增加多个文件夹:选择Project下面的Add Folder to Project即可,也可以直接将文件夹拖拽至Sublime的侧边栏。<br><img src="https://i.imgur.com/ewngg85.gif" alt="x">          </p>
+</li>
+<li>Ctrl+p可以搜索project内任意文件并打开。<br><img src="https://i.imgur.com/66kspEH.gif" alt="x"></li>
+</ul>
+<h2 id="Sublime-X-Stata"><a href="#Sublime-X-Stata" class="headerlink" title="Sublime X Stata"></a>Sublime X Stata</h2><p>在介绍完Sublime的基础使用方法及特点之后，我们来展示如何使用Sublime运行STATA程序，以及对比STATA do file editor的优点。</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>使用Sublime运行do file，需要几个准备步骤。</p>
+<ul>
+<li>首先，需要在Sublime内安装StataEditor,以及Pywin32两个插件。安装方法如下：Ctrl+Shift+P 键入install, 回车选择install Package, 输入StataEditor选择安装；同样的方法安装Pywin32。</li>
+<li>其次，需要注册 Stata Automation，<a href="https://www.stata.com/automation/#createmsapp" target="_blank" rel="noopener">官方解释文档</a> </li>
+<li>完成了这些准备工作之后，我们就可以在Sublime内运行do file了，只要选中想要运行的部分，按下Ctrl+D即可。</li>
+</ul>
+<h3 id="Sublime运行do-file的优势"><a href="#Sublime运行do-file的优势" class="headerlink" title="Sublime运行do file的优势"></a>Sublime运行do file的优势</h3><p>我们总结了一些使用Sublime编辑do file的方便之处，更多的优点等待大家在使用中发掘。</p>
+<ul>
+<li>强大的Auto-Completion：可以自动补齐变量，函数，程序名称。<br><img src="https://ojlty2hua.qnssl.com/image-1531799012834-5Yqo5Zu-My5naWY=.gif?imageView2/2/w/600/h/450/q/75|imageslim" alt=""></li>
+<li>Multiple Selection 可以方便的更改多个重复变量名称。<br><img src="https://ojlty2hua.qnssl.com/image-1531799296394-5Yqo5Zu-NS5naWY=.gif?imageView2/2/w/600/h/450/q/75|imageslim" alt=""></li>
+<li>方便的快捷键组合。<ol>
+<li>Ctrl + ]: 缩进当前行</li>
+<li>Ctrl + [: 取消缩进当前行</li>
+<li>Ctrl + M: 跳到结束括号；重复操作跳到开始括号</li>
+<li>Ctrl + Shift + M : 选择当前圆括号的所有内容</li>
+<li>Ctrl + / : 注释/取消注释当前行</li>
+<li>Ctrl + Shift + / : 阻止注释当前所选内容(Block comment)</li>
+<li>Ctrl + Shift + D :重复行</li>
+</ol>
+</li>
+</ul>
+<h2 id="Sublime-X-Latex"><a href="#Sublime-X-Latex" class="headerlink" title="Sublime X Latex"></a>Sublime X Latex</h2><p>Latex是科研人员编辑论文的主要工具。下面我们将介绍如何设置Sublime来运行tex文件，以及对比其他编译器的优势。</p>
+<h3 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h3><p>使用Sublime编辑Latex文件需要安装Latextools以及Latexcwl两个插件(电脑中需要安装Miktex)。这两个插件的安装方法跟上面介绍的安装StataEditor的方法类似，这里不再赘述了。</p>
+<p>但如果我们希望能够在Sublime中预览pdf文档，需要安装Sumatra Pdf Viewer。<a href="https://www.sumatrapdfreader.org/download-free-pdf-viewer.html" target="_blank" rel="noopener">下载Sumatra</a> 安装后的配置过程可参考<a href="https://latextools.readthedocs.io/en/latest/install/" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="Sublime编辑tex文件的优势"><a href="#Sublime编辑tex文件的优势" class="headerlink" title="Sublime编辑tex文件的优势"></a>Sublime编辑tex文件的优势</h3><ul>
+<li><p>解决输入tex环境的重复性工作<br>使用tex写论文或者做slides时经常遇到的一个问题就是需要重复输入代码，例如列表，表格，或者图片环境。LatexCwl插件很好的解决了这个问题。例如，当需要输入一个列表环境时，只需要键入enum, 然后按下tab键，即可完成列表环境的输入。<br><img src="https://i.imgur.com/I6DcJzs.gif" alt=""></p>
+</li>
+<li><p>简化引用文献，表格以及图片的步骤<br>使用Latex写作时，当我们需要进行引用文献，表格或者图片时，要记住每个文章在bibtex中的key，表格的label等。而Sublime提供了更为简洁的解决措施。在引用文献时，输入 <code>\cite{}</code> 会跳出对话框提示现有bibtex中的参考文献，直接点击想要引用的文献名称即可，也可以直接在对话框里搜索文章或者作者的名字。<br><img src="https://i.imgur.com/nmdbycm.gif" alt="imgur"></p>
+</li>
+<li><p>Minimap 快速定位<br>文章长度超过几千字后，想要快速跳转到需要修改的部分会不太方便。Sublime的minimap可以提供快速定位，只需要点击minimap中大致对应希望修改的部分即可。<br><img src="https://i.imgur.com/jBSP7so.gif" alt="imgur"></p>
+</li>
+<li><p>拼写检查功能<br>编辑器中一个容易被忽视，但是其实至关重要的功能就拼写检查。Sublime也提供了这一功能。选中View中的Spell Check即可。</p>
+</li>
+</ul>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/SUBLIME/">#SUBLIME</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2019/01/12/mle_summary/">Maximum Likelihood Estimation in STATA</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/01/07/tabout/">STATA教程之：Tabout</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+    </div>
+</section>
+
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Yan Song&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/kprinceing">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

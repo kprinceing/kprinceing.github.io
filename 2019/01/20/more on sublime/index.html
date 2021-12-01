@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Sublime Tricks - Yan Song</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+<link href="https://cdn.bootcss.com/hover.css/2.3.1/css/hover-min.css" rel="stylesheet">
+
+<meta name="description" content="About me and my research">
+
+
+
+<meta name="keywords" content="Yan Song">
+
+
+
+    <meta name="description" content="添加MATLAB Build System在Sublime中选择Tools -&amp;gt; Build System -&amp;gt; New Build System，系统会创建一个JSON文件，根据不同系统输入以下内容 1234&amp;#123;  &amp;quot;cmd&amp;quot;: [&amp;quot;/Applications/MATLAB_R2017b.app/bin/matlab&amp;quot;, &amp;quot;-">
+<meta name="keywords" content="Sublime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sublime Tricks">
+<meta property="og:url" content="https://yansong.org/2019/01/20/more on sublime/index.html">
+<meta property="og:site_name" content="Yan Song">
+<meta property="og:description" content="添加MATLAB Build System在Sublime中选择Tools -&amp;gt; Build System -&amp;gt; New Build System，系统会创建一个JSON文件，根据不同系统输入以下内容 1234&amp;#123;  &amp;quot;cmd&amp;quot;: [&amp;quot;/Applications/MATLAB_R2017b.app/bin/matlab&amp;quot;, &amp;quot;-">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-20T09:00:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sublime Tricks">
+<meta name="twitter:description" content="添加MATLAB Build System在Sublime中选择Tools -&amp;gt; Build System -&amp;gt; New Build System，系统会创建一个JSON文件，根据不同系统输入以下内容 1234&amp;#123;  &amp;quot;cmd&amp;quot;: [&amp;quot;/Applications/MATLAB_R2017b.app/bin/matlab&amp;quot;, &amp;quot;-">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <!-- <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a> -->
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item hvr-shadow " href="/">Home</a>
+            
+            <a class="navbar-item hvr-shadow " href="/research">Research</a>
+            
+            <a class="navbar-item hvr-shadow " href="/archives">Teaching</a>
+            
+            <a class="navbar-item hvr-shadow " href="/cv">CV</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/kprinceing">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Sublime Tricks
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-01-20T02:28:52.000Z" itemprop="datePublished">1月 20 2019</time>
+        </span>
+        
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h2 id="添加MATLAB-Build-System"><a href="#添加MATLAB-Build-System" class="headerlink" title="添加MATLAB Build System"></a>添加MATLAB Build System</h2><p>在Sublime中选择Tools -&gt; Build System -&gt; New Build System，系统会创建一个JSON文件，根据不同系统输入以下内容</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;cmd&quot;: [&quot;/Applications/MATLAB_R2017b.app/bin/matlab&quot;, &quot;-nosplash&quot;, &quot;-nodesktop&quot;,  &quot;-r&quot;, &quot;run(&apos;$file_name&apos;)&quot;],</span><br><span class="line">  &quot;selector&quot;: &quot;source.m&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面给出的路径是我的电脑中的配置，需要根据电脑中MATLAB安装路径来修改。其中，matlab -nosplash -nodesktop -r ${file_base_name}表示启动matlab，并运行某个.m文件。-nosplash表示不加载启动界面；-nodesktop表示不加载GUI界面；-r表示运行Matlab命令行（MATLAB_command）；filename表示文件名，但不包含文件扩展名，如.m等。设置完成后保存即可。</p>
+<p>保存好后可以打开一个.m文件，在Build System下选择刚新建的配置，按下快捷键Ctrl+B，Sublime会打开MATLAB_command并编译当前文件。<br>但是目前的方法仍然有缺陷，每次Build都会产生一个新的命令行界面，相当于每次都重新启动了一次MATLAB_command。</p>
+<h2 id="同步Sublime设置"><a href="#同步Sublime设置" class="headerlink" title="同步Sublime设置"></a>同步Sublime设置</h2><p>当我们使用多台电脑工作时，如果需要在每台电脑上重复安装所有的Sublime package将是非常麻烦的工作。Package Control提供了一种简便的同步方式。</p>
+<p>首先找到Packages/User/文件夹下面的Package Control.sublime-settings文件，然后将这个文件复制到其他电脑的同样位置下。重新启动Sublime时，Package Control将会安装所有缺失package的正确版本。当然，这样的方法不能够提供实时同步的功能。如果你希望不同电脑上的Sublime能够实时同步，有两种方法，一是使用git,二是使用drobox的symbolic link。第一种方法要方便的多。具体可以参考<a href="https://packagecontrol.io/docs/syncing" target="_blank" rel="noopener">https://packagecontrol.io/docs/syncing</a></p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Sublime/">#Sublime</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2019/05/17/talk/">Talk on coding practice for IESR, Jinan</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/01/12/mle_summary/">Maximum Likelihood Estimation in STATA</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+    </div>
+</section>
+
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Yan Song&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/kprinceing">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
